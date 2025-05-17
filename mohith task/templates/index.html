@@ -2,30 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Live Indian News</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Live News</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 </head>
 <body>
     <button onclick="refreshNews()">
         🔄 Refresh News
     </button>
-    <h1>The Side And Short News(INDIAN NEWS)</h1>
-    <h2>Here top 21 indian news</h2>
-     <script>
+    <h1>The Side And Short News (INDIAN NEWS)</h1>
+    <h2>Here top {{ news|length }} Indian news</h2>
+
+    <p><small>Last updated: {{ last_updated }}</small></p>
+
+    <script>
         function refreshNews() {
-            // Reload the page to fetch latest news
             location.reload();
         }
     </script>
+
     <div class="out">
         {% for item in news %}
-        <div class="box">
-            <h2>Top {{ loop.index }}</h2>
-            <p><a href="{{ item.link }}" target="_blank">{{ item.title }}</a></p>
-            <small>{{ item.pub_date }}</small>
-        </div><br><br><br>
+            <div class="box">
+                <h2>Top {{ loop.index }}</h2>
+                <p><a href="{{ item.link }}" target="_blank" rel="noopener">{{ item.title }}</a></p>
+                <small>{{ item.pub_date }}</small>
+            </div>
+        {% else %}
+            <p>No news available at the moment.</p>
         {% endfor %}
     </div>
-
 </body>
 </html>
